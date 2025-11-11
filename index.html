@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Real-Time Attendance Logger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <div class="app__title">
+          <h1>Real-Time Attendance Logger</h1>
+          <p class="subtitle">Track check-ins and check-outs with live updates</p>
+        </div>
+        <div class="clock" id="liveClock">--:--:--</div>
+      </header>
+
+      <main class="app__main">
+        <section class="panel">
+          <h2 class="panel__title">New Entry</h2>
+          <form id="entryForm" class="form">
+            <div class="form__row">
+              <div class="form__field">
+                <label for="personName">Full Name</label>
+                <input type="text" id="personName" placeholder="e.g. Alex Johnson" autocomplete="off" required>
+              </div>
+              <div class="form__field">
+                <label for="personId">ID / Employee No.</label>
+                <input type="text" id="personId" placeholder="e.g. EMP-00123" autocomplete="off" required>
+              </div>
+              <div class="form__field">
+                <label for="actionType">Action</label>
+                <select id="actionType" required>
+                  <option value="checkin">Check-In</option>
+                  <option value="checkout">Check-Out</option>
+                </select>
+              </div>
+            </div>
+            <div class="form__row form__row--actions">
+              <button type="submit" class="btn btn--primary">Log Attendance</button>
+              <button type="button" id="quickCheckin" class="btn">Quick Check-In</button>
+              <button type="button" id="quickCheckout" class="btn">Quick Check-Out</button>
+              <div class="grow"></div>
+              <button type="button" id="exportCsv" class="btn btn--ghost">Export CSV</button>
+              <button type="button" id="clearAll" class="btn btn--danger">Clear All</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel__title">Records</h2>
+          <div class="toolbar">
+            <div class="toolbar__group">
+              <input type="search" id="searchInput" placeholder="Search name or ID...">
+              <select id="statusFilter">
+                <option value="all">All</option>
+                <option value="checkin">Check-Ins</option>
+                <option value="checkout">Check-Outs</option>
+                <option value="present">Currently Present</option>
+              </select>
+              <input type="date" id="dateFrom">
+              <span class="sep">to</span>
+              <input type="date" id="dateTo">
+              <button id="resetFilters" class="btn btn--ghost">Reset</button>
+            </div>
+            <div class="toolbar__group">
+              <span id="summary" class="summary">0 present • 0 total today</span>
+            </div>
+          </div>
+
+          <div class="table__wrap">
+            <table class="table" id="recordsTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>ID</th>
+                  <th>Action</th>
+                  <th>Time</th>
+                  <th>Session</th>
+                </tr>
+              </thead>
+              <tbody id="recordsTbody">
+                <tr><td colspan="6" class="empty">No records yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app__footer">
+        <span>Made for real-time attendance logging. Data is stored locally in your browser.</span>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
+
+
